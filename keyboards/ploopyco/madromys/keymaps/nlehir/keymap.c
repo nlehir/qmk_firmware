@@ -64,6 +64,15 @@ void td_ableton_finished(tap_dance_state_t *state, void *user_data) {
         case 2:
             tap_code16(A(G(KC_B)));
             break;
+        case 3:
+            // Hold CMD
+            register_mods(MOD_BIT(KC_LGUI));
+            // check language stuff
+            tap_code(KC_Q);   // press A while CMD is held
+            unregister_mods(MOD_BIT(KC_LGUI));
+            tap_code(KC_U);
+            tap_code(KC_ESC);
+            break;
         default:
             break;
     }
