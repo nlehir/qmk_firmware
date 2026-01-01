@@ -17,6 +17,61 @@
  */
 #include QMK_KEYBOARD_H
 
+enum custom_keycodes {
+    MACRO_1 = SAFE_RANGE,
+    MACRO_2,
+    MACRO_12,
+};
+
+const uint16_t PROGMEM cmd_tab_combo[] = {MACRO_1, MACRO_2, COMBO_END};
+
+combo_t key_combos[1] = {
+    [0] = COMBO(cmd_tab_combo, MACRO_12)
+};
+
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!record->event.pressed) {
+        return true;
+    }
+
+    switch (keycode) {
+        case MACRO_1:
+            // Single Button: Option + Command + L
+            tap_code16(A(G(KC_L)));
+            return false;
+
+        case MACRO_2:
+            // Single Button: right click
+            tap_code(MS_BTN2);
+            return false;
+
+        case MACRO_12:
+            // Combo (MACRO_1 + MACRO_2): Command + Tab
+            tap_code16(G(KC_TAB));
+            return false;
+    }
+    return true;
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT( MS_BTN1, MS_BTN5, DRAG_SCROLL, MS_BTN2, MS_BTN1, MS_BTN3 )
+    // Layer 0
+    [0] = LAYOUT(
+            MS_BTN1, // top left
+            TG(1), // top mid left
+            DRAG_SCROLL, // top mid right
+            MS_BTN2, // top right
+            DRAG_SCROLL, // bottom left
+            DPI_CONFIG // bottom right
+            ),
+
+    // Layer 1
+    [1] = LAYOUT(
+            MS_BTN1, // top left
+            KC_TRNS, // top mid left
+            DRAG_SCROLL, // top mid right
+            MACRO_2, // top right
+            DRAG_SCROLL, // bottom left
+            MACRO_1 // bottom right
+            ),
 };
