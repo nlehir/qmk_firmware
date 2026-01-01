@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Layer 1
     [1] = LAYOUT(
             MS_BTN1, // top left
-            KC_TRNS, // top mid left
+            TO(0), // top mid left
             KC_A, // top mid right
             MACRO_2, // top right
             DRAG_SCROLL, // bottom left
@@ -110,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Layer 2
     [2] = LAYOUT(
             DRAG_SCROLL, // top left
-            KC_TRNS, // top mid left
+            TO(0), // top mid left
             KC_B, // top mid right
             MACRO_2, // top right
             DRAG_SCROLL, // bottom left
@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Layer 3
     [3] = LAYOUT(
             DRAG_SCROLL, // top left
-            KC_TRNS, // top mid left
+            TO(0), // top mid left
             KC_C, // top mid right
             MACRO_2, // top right
             DRAG_SCROLL, // bottom left
