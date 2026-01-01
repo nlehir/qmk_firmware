@@ -86,10 +86,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    // Layer 0
     [0] = LAYOUT(
             MS_BTN1, // top left
-            // TG(1), // top mid left
             TD(TD_LAYER), // top mid left
             DRAG_SCROLL, // top mid right
             MS_BTN2, // top right
@@ -97,7 +95,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             DPI_CONFIG // bottom right
             ),
 
-    // Layer 1
     [1] = LAYOUT(
             MS_BTN1, // top left
             TO(0), // top mid left
@@ -107,7 +104,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             MACRO_1 // bottom right
             ),
 
-    // Layer 2
     [2] = LAYOUT(
             DRAG_SCROLL, // top left
             TO(0), // top mid left
@@ -117,7 +113,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             MACRO_1 // bottom right
             ),
 
-    // Layer 3
     [3] = LAYOUT(
             DRAG_SCROLL, // top left
             TO(0), // top mid left
