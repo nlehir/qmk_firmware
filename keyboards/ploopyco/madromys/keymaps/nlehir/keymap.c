@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             TO(0), // top mid left
             KC_A, // top mid right
             MACRO_2, // top right
-            DRAG_SCROLL, // bottom left
+            MS_BTN1, // bottom left
             MACRO_1 // bottom right
             ),
 
