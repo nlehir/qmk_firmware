@@ -23,12 +23,43 @@ enum custom_keycodes {
     MACRO_12,
 };
 
+enum {
+    TD_LAYER,
+};
+
+
+// why needed ?
+void td_layer_reset(tap_dance_state_t *state, void *user_data) {
+    // nothing needed here
+}
+
+void td_layer_finished(tap_dance_state_t *state, void *user_data) {
+    switch (state->count) {
+        case 1:
+            layer_invert(1);  // single tap toggles layer 1
+            break;
+        case 2:
+            layer_invert(2);  // double tap toggles layer 2
+            break;
+        case 3:
+            layer_invert(3);  // triple tap toggles layer 3
+            break;
+        default:
+            // More than 3 taps: do nothing (or add more layers if you want)
+            break;
+    }
+}
+
+// Tap Dance definitions
+tap_dance_action_t tap_dance_actions[] = {
+    [TD_LAYER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_layer_finished, td_layer_reset),
+};
+
 const uint16_t PROGMEM cmd_tab_combo[] = {MACRO_1, MACRO_2, COMBO_END};
 
 combo_t key_combos[1] = {
     [0] = COMBO(cmd_tab_combo, MACRO_12)
 };
-
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!record->event.pressed) {
@@ -58,7 +89,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Layer 0
     [0] = LAYOUT(
             MS_BTN1, // top left
-            TG(1), // top mid left
+            // TG(1), // top mid left
+            TD(TD_LAYER), // top mid left
             DRAG_SCROLL, // top mid right
             MS_BTN2, // top right
             DRAG_SCROLL, // bottom left
@@ -69,7 +101,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [1] = LAYOUT(
             MS_BTN1, // top left
             KC_TRNS, // top mid left
-            DRAG_SCROLL, // top mid right
+            KC_A, // top mid right
+            MACRO_2, // top right
+            DRAG_SCROLL, // bottom left
+            MACRO_1 // bottom right
+            ),
+
+    // Layer 2
+    [2] = LAYOUT(
+            DRAG_SCROLL, // top left
+            KC_TRNS, // top mid left
+            KC_B, // top mid right
+            MACRO_2, // top right
+            DRAG_SCROLL, // bottom left
+            MACRO_1 // bottom right
+            ),
+
+    // Layer 3
+    [3] = LAYOUT(
+            DRAG_SCROLL, // top left
+            KC_TRNS, // top mid left
+            KC_C, // top mid right
             MACRO_2, // top right
             DRAG_SCROLL, // bottom left
             MACRO_1 // bottom right
