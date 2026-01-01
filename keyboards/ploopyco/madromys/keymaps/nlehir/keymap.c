@@ -25,11 +25,17 @@ enum custom_keycodes {
 
 enum {
     TD_LAYER,
+    TD_ABLETON,
 };
 
 
 // why needed ?
 void td_layer_reset(tap_dance_state_t *state, void *user_data) {
+    // nothing needed here
+}
+
+// why needed ?
+void td_ableton_reset(tap_dance_state_t *state, void *user_data) {
     // nothing needed here
 }
 
@@ -50,9 +56,23 @@ void td_layer_finished(tap_dance_state_t *state, void *user_data) {
     }
 }
 
+void td_ableton_finished(tap_dance_state_t *state, void *user_data) {
+    switch (state->count) {
+        case 1:
+            tap_code16(A(G(KC_L)));
+            break;
+        case 2:
+            tap_code16(A(G(KC_B)));
+            break;
+        default:
+            break;
+    }
+}
+
 // Tap Dance definitions
 tap_dance_action_t tap_dance_actions[] = {
     [TD_LAYER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_layer_finished, td_layer_reset),
+    [TD_ABLETON] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_ableton_finished, td_ableton_reset),
 };
 
 const uint16_t PROGMEM cmd_tab_combo[] = {MACRO_1, MACRO_2, COMBO_END};
@@ -98,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [1] = LAYOUT(
             MS_BTN1, // top left
             TO(0), // top mid left
-            KC_A, // top mid right
+            TD(TD_ABLETON), // top mid right
             MACRO_2, // top right
             MS_BTN1, // bottom left
             MACRO_1 // bottom right
