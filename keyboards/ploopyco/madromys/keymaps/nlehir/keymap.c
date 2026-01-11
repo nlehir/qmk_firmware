@@ -17,6 +17,27 @@
  */
 #include QMK_KEYBOARD_H
 
+
+// 2026-01-09
+// Layer 0 :
+//     Gauche haut: click
+//     Gauche bas: drag scroll
+//     Milieu haut gauche: tap dance layers
+//     Milieu haut droit: drag scroll
+//     Droite haut: click droit (MACRO 2)
+//     Droite bas: DPI_CONFIG
+//
+// Layer 1 (Ableton):
+//     Gauche haut: click
+//     Gauche bas: click
+//     Milieu haut gauche: vers Layer 0
+//     Milieu haut droit 1 fois: CMD ALT L (MACRO 1)
+//     Milieu haut droit 2 fois: CMD ALT B
+//     Droite haut: click droit (MACRO 2)
+//     Droite bas + droite haut: CMD TAB
+//     Droite bas: CMD ALT L (MACRO 1)
+
+
 enum custom_keycodes {
     MACRO_1 = SAFE_RANGE,
     MACRO_2,
@@ -127,12 +148,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [1] = LAYOUT(
             MS_BTN1, // top left
             TO(0), // top mid left
-            TD(TD_ABLETON), // top mid right
+            KC_SPACE, // top mid right
             MACRO_2, // top right
-            MS_BTN1, // bottom left
-            MACRO_1 // bottom right
+            DRAG_SCROLL, // bottom left
+            TD(TD_ABLETON) // bottom right
             ),
 
+    // Not done yet
     [2] = LAYOUT(
             DRAG_SCROLL, // top left
             TO(0), // top mid left
@@ -142,6 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             MACRO_1 // bottom right
             ),
 
+    // Not done yet
     [3] = LAYOUT(
             DRAG_SCROLL, // top left
             TO(0), // top mid left
