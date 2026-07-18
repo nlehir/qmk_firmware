@@ -60,7 +60,7 @@ void td_ableton_reset(tap_dance_state_t *state, void *user_data) {
     // nothing needed here
 }
 
-void td_layer_finished(tap_dance_state_t *state, void *user_data) {
+void td_layer(tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
         case 1:
             layer_invert(1); // single tap toggles layer 1
@@ -77,7 +77,7 @@ void td_layer_finished(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void td_ableton_finished(tap_dance_state_t *state, void *user_data) {
+void td_ableton(tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
         case 1:
             tap_code16(A(G(KC_L)));
@@ -101,8 +101,8 @@ void td_ableton_finished(tap_dance_state_t *state, void *user_data) {
 
 // Tap Dance definitions
 tap_dance_action_t tap_dance_actions[] = {
-    [TD_LAYER]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_layer_finished, td_layer_reset),
-    [TD_ABLETON] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_ableton_finished, td_ableton_reset),
+    [TD_LAYER]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_layer, td_layer_reset),
+    [TD_ABLETON] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_ableton, td_ableton_reset),
 };
 
 const uint16_t PROGMEM cmd_tab_combo[] = {MACRO_1, MACRO_2, COMBO_END};
