@@ -145,12 +145,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(MS_BTN1,     // top left
                               // TD(TD_LAYER), // top mid left
-                 KC_KP_MINUS, // top mid left
-                 KC_KP_PLUS,  // top mid right
-                 MS_BTN2,     // top right
-                 // MS_BTN1,     // bottom left
-                 CURSOR_MODE, // bottom left
-                 KC_T         // bottom right
+                 KC_KP_MINUS, // top mid right: ableton dezoom
+                 KC_KP_PLUS,  // top mid right: ableton zoom
+                 KC_SPACE,    // top right
+                 CURSOR_MODE, // bottom left: activate move mouse
+                 // KC_H         // bottom right: ableton reshape
+                 TD(TD_ABLETON) // bottom right
                  ),
 
     [1] = LAYOUT(MS_BTN1,       // top left
