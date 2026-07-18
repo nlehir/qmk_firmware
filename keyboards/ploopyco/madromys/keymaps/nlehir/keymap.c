@@ -17,6 +17,8 @@
  */
 #include QMK_KEYBOARD_H
 
+extern bool is_drag_scroll;
+
 // 2026-01-09
 // Layer 0 :
 //     Gauche haut: click
@@ -40,6 +42,7 @@ enum custom_keycodes {
     MACRO_1 = SAFE_RANGE,
     MACRO_2,
     MACRO_12,
+    CURSOR_MODE,
 };
 
 enum {
@@ -107,26 +110,35 @@ const uint16_t PROGMEM cmd_tab_combo[] = {MACRO_1, MACRO_2, COMBO_END};
 combo_t key_combos[1] = {[0] = COMBO(cmd_tab_combo, MACRO_12)};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!record->event.pressed) {
-        return true;
-    }
-
     switch (keycode) {
+        case CURSOR_MODE:
+            // Hold button = cursor mode
+            // Release button = scroll mode
+            is_drag_scroll = !record->event.pressed;
+            return false;
+
         case MACRO_1:
-            // Single Button: Option + Command + L
+            if (!record->event.pressed) {
+                return false;
+            }
             tap_code16(A(G(KC_L)));
             return false;
 
         case MACRO_2:
-            // Single Button: right click
+            if (!record->event.pressed) {
+                return false;
+            }
             tap_code(MS_BTN2);
             return false;
 
         case MACRO_12:
-            // Combo (MACRO_1 + MACRO_2): Command + Tab
+            if (!record->event.pressed) {
+                return false;
+            }
             tap_code16(G(KC_TAB));
             return false;
     }
+
     return true;
 }
 
@@ -137,15 +149,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_KP_PLUS,  // top mid right
                  MS_BTN2,     // top right
                  // MS_BTN1,     // bottom left
-                 DRAG_SCROLL, // bottom left
-                 KC_H         // bottom right
+                 CURSOR_MODE, // bottom left
+                 KC_T         // bottom right
                  ),
 
     [1] = LAYOUT(MS_BTN1,       // top left
                  TO(0),         // top mid left
                  KC_SPACE,      // top mid right
                  MACRO_2,       // top right
-                 DRAG_SCROLL,   // bottom left
+                 CURSOR_MODE,   // bottom left
                  TD(TD_ABLETON) // bottom right
                  ),
 

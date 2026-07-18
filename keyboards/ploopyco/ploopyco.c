@@ -64,7 +64,7 @@ uint16_t          dpi_array[] = PLOOPY_DPI_OPTIONS;
 
 // Trackball State
 bool  is_scroll_clicked    = false;
-bool  is_drag_scroll       = false;
+bool  is_drag_scroll       = true;
 float scroll_accumulated_h = 0;
 float scroll_accumulated_v = 0;
 
