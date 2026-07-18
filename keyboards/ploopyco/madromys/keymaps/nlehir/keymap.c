@@ -17,7 +17,6 @@
  */
 #include QMK_KEYBOARD_H
 
-
 // 2026-01-09
 // Layer 0 :
 //     Gauche haut: click
@@ -37,7 +36,6 @@
 //     Droite bas + droite haut: CMD TAB
 //     Droite bas: CMD ALT L (MACRO 1)
 
-
 enum custom_keycodes {
     MACRO_1 = SAFE_RANGE,
     MACRO_2,
@@ -48,7 +46,6 @@ enum {
     TD_LAYER,
     TD_ABLETON,
 };
-
 
 // why needed ?
 void td_layer_reset(tap_dance_state_t *state, void *user_data) {
@@ -63,13 +60,13 @@ void td_ableton_reset(tap_dance_state_t *state, void *user_data) {
 void td_layer_finished(tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
         case 1:
-            layer_invert(1);  // single tap toggles layer 1
+            layer_invert(1); // single tap toggles layer 1
             break;
         case 2:
-            layer_invert(2);  // double tap toggles layer 2
+            layer_invert(2); // double tap toggles layer 2
             break;
         case 3:
-            layer_invert(3);  // triple tap toggles layer 3
+            layer_invert(3); // triple tap toggles layer 3
             break;
         default:
             // More than 3 taps: do nothing (or add more layers if you want)
@@ -89,7 +86,7 @@ void td_ableton_finished(tap_dance_state_t *state, void *user_data) {
             // Hold CMD
             register_mods(MOD_BIT(KC_LGUI));
             // check language stuff
-            tap_code(KC_Q);   // press A while CMD is held
+            tap_code(KC_Q); // press A while CMD is held
             unregister_mods(MOD_BIT(KC_LGUI));
             tap_code(KC_U);
             tap_code(KC_ESC);
@@ -101,15 +98,13 @@ void td_ableton_finished(tap_dance_state_t *state, void *user_data) {
 
 // Tap Dance definitions
 tap_dance_action_t tap_dance_actions[] = {
-    [TD_LAYER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_layer_finished, td_layer_reset),
+    [TD_LAYER]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_layer_finished, td_layer_reset),
     [TD_ABLETON] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_ableton_finished, td_ableton_reset),
 };
 
 const uint16_t PROGMEM cmd_tab_combo[] = {MACRO_1, MACRO_2, COMBO_END};
 
-combo_t key_combos[1] = {
-    [0] = COMBO(cmd_tab_combo, MACRO_12)
-};
+combo_t key_combos[1] = {[0] = COMBO(cmd_tab_combo, MACRO_12)};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!record->event.pressed) {
@@ -136,41 +131,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT(
-            MS_BTN1, // top left
-            TD(TD_LAYER), // top mid left
-            DRAG_SCROLL, // top mid right
-            MS_BTN2, // top right
-            DRAG_SCROLL, // bottom left
-            DPI_CONFIG // bottom right
-            ),
+    [0] = LAYOUT(MS_BTN1,     // top left
+                              // TD(TD_LAYER), // top mid left
+                 KC_KP_MINUS, // top mid left
+                 KC_KP_PLUS,  // top mid right
+                 MS_BTN2,     // top right
+                 // MS_BTN1,     // bottom left
+                 DRAG_SCROLL, // bottom left
+                 KC_H         // bottom right
+                 ),
 
-    [1] = LAYOUT(
-            MS_BTN1, // top left
-            TO(0), // top mid left
-            KC_SPACE, // top mid right
-            MACRO_2, // top right
-            DRAG_SCROLL, // bottom left
-            TD(TD_ABLETON) // bottom right
-            ),
-
-    // Not done yet
-    [2] = LAYOUT(
-            DRAG_SCROLL, // top left
-            TO(0), // top mid left
-            KC_B, // top mid right
-            MACRO_2, // top right
-            DRAG_SCROLL, // bottom left
-            MACRO_1 // bottom right
-            ),
+    [1] = LAYOUT(MS_BTN1,       // top left
+                 TO(0),         // top mid left
+                 KC_SPACE,      // top mid right
+                 MACRO_2,       // top right
+                 DRAG_SCROLL,   // bottom left
+                 TD(TD_ABLETON) // bottom right
+                 ),
 
     // Not done yet
-    [3] = LAYOUT(
-            DRAG_SCROLL, // top left
-            TO(0), // top mid left
-            KC_C, // top mid right
-            MACRO_2, // top right
-            DRAG_SCROLL, // bottom left
-            MACRO_1 // bottom right
-            ),
+    [2] = LAYOUT(DRAG_SCROLL, // top left
+                 TO(0),       // top mid left
+                 KC_B,        // top mid right
+                 MACRO_2,     // top right
+                 DRAG_SCROLL, // bottom left
+                 MACRO_1      // bottom right
+                 ),
+
+    // Not done yet
+    [3] = LAYOUT(DRAG_SCROLL, // top left
+                 TO(0),       // top mid left
+                 KC_C,        // top mid right
+                 MACRO_2,     // top right
+                 DRAG_SCROLL, // bottom left
+                 MACRO_1      // bottom right
+                 ),
 };
