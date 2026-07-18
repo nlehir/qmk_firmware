@@ -80,19 +80,22 @@ void td_layer(tap_dance_state_t *state, void *user_data) {
 void td_ableton(tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
         case 1:
-            tap_code16(A(G(KC_L)));
+            // tap_code16(A(G(KC_L)));
+            tap_code(KC_H);
             break;
         case 2:
-            tap_code16(A(G(KC_B)));
+            // tap_code16(A(G(KC_B)));
+            tap_code(KC_Z); // because qwerty azerty
             break;
         case 3:
             // Hold CMD
             register_mods(MOD_BIT(KC_LGUI));
             // check language stuff
-            tap_code(KC_Q); // press A while CMD is held
+            tap_code(KC_Q); // press A while CMD is held (qwerty azerty)
             unregister_mods(MOD_BIT(KC_LGUI));
             tap_code(KC_U);
             tap_code(KC_ESC);
+            tap_code(MS_BTN1);
             break;
         default:
             break;
